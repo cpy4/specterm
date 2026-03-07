@@ -30,8 +30,16 @@ Spec-Driven Development enforces a **think-before-you-code** discipline: every f
 
 ### 1. Copy `sdd/` into your project root
 
+If you already have this repo cloned:
+
 ```bash
 cp -r sdd/ /your/project/
+```
+
+Or pull it directly from GitHub without cloning the full repo:
+
+```bash
+git clone --depth=1 https://github.com/cjpye/specter.git /tmp/specter && cp -r /tmp/specter/sdd /your/project/ && rm -rf /tmp/specter
 ```
 
 ### 2. Run setup

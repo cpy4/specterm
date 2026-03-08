@@ -58,7 +58,7 @@ if $setup_claude_code; then
     echo "── Claude Code ──"
     mkdir -p "$PROJECT_ROOT/.claude/commands"
     cp "$SCRIPT_DIR/integrations/claude-code/commands/"*.md "$PROJECT_ROOT/.claude/commands/"
-    echo "✓ Installed slash commands: /spec, /design-first, /bugfix, /tasks, /steering"
+    echo "✓ Installed slash commands: /spec, /implement, /design-first, /bugfix, /tasks, /steering"
 
     if [ -f "$PROJECT_ROOT/CLAUDE.md" ]; then
         if grep -q "Spec-Driven Development" "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null; then
@@ -84,7 +84,7 @@ if $setup_cursor; then
 
     mkdir -p "$PROJECT_ROOT/.cursor/commands"
     cp "$SCRIPT_DIR/integrations/cursor/commands/"*.md "$PROJECT_ROOT/.cursor/commands/"
-    echo "✓ Installed slash commands: /spec, /design-first, /bugfix, /tasks, /steering"
+    echo "✓ Installed slash commands: /spec, /implement, /design-first, /bugfix, /tasks, /steering"
 fi
 
 # OpenCode integration
@@ -93,7 +93,7 @@ if $setup_opencode; then
     echo "── OpenCode ──"
     mkdir -p "$PROJECT_ROOT/.opencode/commands"
     cp "$SCRIPT_DIR/integrations/opencode/commands/"*.md "$PROJECT_ROOT/.opencode/commands/"
-    echo "✓ Installed commands: /spec, /design-first, /bugfix, /tasks, /steering"
+    echo "✓ Installed commands: /spec, /implement, /design-first, /bugfix, /tasks, /steering"
 
     # Set up AGENTS.md (OpenCode's primary rules file)
     if [ -f "$PROJECT_ROOT/AGENTS.md" ]; then

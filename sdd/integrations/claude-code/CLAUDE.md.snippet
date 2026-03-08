@@ -3,6 +3,7 @@
 This project uses Spec-Driven Development (SDD). Specs live in `.specs/specs/{feature-name}/` with three files: `requirements.md`, `design.md`, `tasks.md`.
 
 - Before implementing any non-trivial feature, create a spec first using `/spec`
+- Before implementing anything, check `.specs/specs/` for an existing spec matching the feature — if one exists, use `/implement` to load it before writing any code
 - Always read `.specs/steering/*.md` before generating specs or making architectural decisions
 - Full SDD rules and workflow details: read `sdd/RULES.md` when doing spec work
 - Specs use EARS notation for requirements: `WHEN [trigger] THE SYSTEM SHALL [behavior]`

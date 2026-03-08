@@ -31,5 +31,6 @@ Steering docs in `.specs/steering/` provide persistent project context — alway
 6. **Traceability** — every task references specific requirement numbers
 7. **Tasks are coding-only** — exclude deployment, docs, testing, CI/CD tasks
 8. **Bugfix specs** use `WHEN [condition] THE SYSTEM SHALL CONTINUE TO [behavior]` for regression protection
+9. **Check before implementing** — before writing any code for a feature, check `.specs/specs/` for an existing spec; if found, read `requirements.md`, `design.md`, and `tasks.md` first
 
 For complete formatting rules, phase-specific instructions, and examples, read `sdd/RULES.md`.

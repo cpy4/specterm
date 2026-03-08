@@ -48,7 +48,8 @@ RULES:
 - Include version numbers where available.
 - For "Hard Prohibitions," only list things you can justify from the codebase (e.g., no test files use enzyme → "DO NOT use enzyme").
 - If you can't confidently determine something, mark it with <!-- TODO: confirm --> rather than guessing.
-- Save to .specs/steering/product.md, .specs/steering/tech.md, .specs/steering/structure.md.
+- Save to .specs/steering/product.md, .specs/steering/tech.md, .specs/steering/structure.md IMMEDIATELY — don't wait for approval. The user will review the files in their IDE.
+- After saving, ask me to review and say "LGTM" when satisfied.
 ```
 
 ---

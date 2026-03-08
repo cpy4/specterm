@@ -29,4 +29,4 @@ Rules:
 - Include version numbers where available
 - For prohibitions, only list things justified by the codebase (e.g., no class components found → prohibit them)
 - Mark uncertain items with `<!-- TODO: confirm -->` rather than guessing
-- Present all three files for review before saving
+- **Save all three files to disk immediately**, then tell the user: "I've saved the steering docs to `.specs/steering/` — review them in your IDE or here, then let me know your feedback or say **LGTM** to approve."

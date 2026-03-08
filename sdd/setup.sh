@@ -58,7 +58,7 @@ if $setup_claude_code; then
     echo "── Claude Code ──"
     mkdir -p "$PROJECT_ROOT/.claude/commands"
     cp "$SCRIPT_DIR/integrations/claude-code/commands/"*.md "$PROJECT_ROOT/.claude/commands/"
-    echo "✓ Installed slash commands: /spec, /implement, /design-first, /bugfix, /tasks, /steering"
+    echo "✓ Installed slash commands: /spec, /spec-from-issue, /implement, /design-first, /bugfix, /tasks, /steering, /sync-to-issue"
 
     if [ -f "$PROJECT_ROOT/CLAUDE.md" ]; then
         if grep -q "Spec-Driven Development" "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null; then
@@ -84,7 +84,7 @@ if $setup_cursor; then
 
     mkdir -p "$PROJECT_ROOT/.cursor/commands"
     cp "$SCRIPT_DIR/integrations/cursor/commands/"*.md "$PROJECT_ROOT/.cursor/commands/"
-    echo "✓ Installed slash commands: /spec, /implement, /design-first, /bugfix, /tasks, /steering"
+    echo "✓ Installed slash commands: /spec, /spec-from-issue, /implement, /design-first, /bugfix, /tasks, /steering, /sync-to-issue"
 fi
 
 # OpenCode integration
@@ -93,7 +93,7 @@ if $setup_opencode; then
     echo "── OpenCode ──"
     mkdir -p "$PROJECT_ROOT/.opencode/commands"
     cp "$SCRIPT_DIR/integrations/opencode/commands/"*.md "$PROJECT_ROOT/.opencode/commands/"
-    echo "✓ Installed commands: /spec, /implement, /design-first, /bugfix, /tasks, /steering"
+    echo "✓ Installed commands: /spec, /spec-from-issue, /implement, /design-first, /bugfix, /tasks, /steering, /sync-to-issue"
 
     # Set up AGENTS.md (OpenCode's primary rules file)
     if [ -f "$PROJECT_ROOT/AGENTS.md" ]; then
@@ -157,7 +157,11 @@ echo "Done! Next steps:"
 echo "  1. Run /steering to generate steering docs from your codebase"
 echo "  2. Review and commit the generated .specs/steering/ files"
 echo "  3. Start your first spec with /spec [feature description]"
+echo "     Or seed from an issue: /spec-from-issue [issue-id]"
+echo ""
+echo "To update sdd/ later:  ./sdd/update.sh [tool ...]"
 echo ""
 echo "Note: In Cursor, type /spec then add your description in the same message."
 echo "      In Zed with first-party agent, use natural language instead of slash commands."
+echo "      Issue tracker sync (/spec-from-issue, /sync-to-issue) requires MCP integration."
 echo "════════════════════════════════════════════"

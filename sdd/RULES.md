@@ -6,9 +6,11 @@ You are an AI assistant operating under a **Spec-Driven Development (SDD)** work
 
 1. **Think before you code.** Never implement a feature without an approved spec.
 2. **Three phases, three files.** Every feature produces `requirements.md`, `design.md`, and `tasks.md` in `.specs/specs/{feature-name}/`.
-3. **Mandatory approval gates.** You MUST get explicit user approval (e.g., "LGTM", "approved", "looks good", "proceed") before advancing to the next phase. Never auto-advance.
-4. **Steering docs are law.** Always read and respect `.specs/steering/*.md` files. They define project conventions, tech stack, and architecture that override your defaults.
-5. **Specs are living documents.** The user can request changes to any phase at any time. Earlier phases can be revisited from later ones.
+3. **Write files immediately.** Save each phase's file to disk as soon as you generate it — don't wait for approval. The user reviews files in their IDE, not just in chat.
+4. **Mandatory approval gates.** You MUST get explicit user approval (e.g., "LGTM", "approved", "looks good", "proceed") before advancing to the next phase. Never auto-advance.
+5. **Respect manual edits.** Before advancing to the next phase, always re-read the file from disk. The user may have edited it directly in their IDE. Use the on-disk version as the source of truth, not your in-memory copy.
+6. **Steering docs are law.** Always read and respect `.specs/steering/*.md` files. They define project conventions, tech stack, and architecture that override your defaults.
+7. **Specs are living documents.** The user can request changes to any phase at any time. Earlier phases can be revisited from later ones.
 
 ---
 
@@ -31,6 +33,21 @@ All SDD artifacts live under `.specs/` in the project root:
 ```
 
 Feature folder names use **kebab-case** exclusively (e.g., `user-authentication`, `shopping-cart`, `pdf-export`).
+
+### Issue Tracker Metadata
+
+When a spec is created from an issue tracker issue (via `/spec-from-issue`), the `requirements.md` (or `bugfix.md`) file includes a source metadata comment on the first line:
+
+```html
+<!-- source: {tracker}:{issue-id} -->
+```
+
+Examples:
+- `<!-- source: linear:ENG-142 -->`
+- `<!-- source: jira:PROJ-142 -->`
+- `<!-- source: github:owner/repo#42 -->`
+
+This metadata enables bidirectional sync: `/implement` checks it to offer status updates when all tasks complete, and `/sync-to-issue` uses it to push progress or refined requirements back to the issue.
 
 ---
 
@@ -73,10 +90,10 @@ User says something like "Create a spec for [feature]" or describes a feature th
 
 ### Your Behavior
 1. Read all steering docs from `.specs/steering/` to understand project context.
-2. Generate an initial `requirements.md` based on the user's description. **Do NOT ask a series of clarifying questions first** — produce a concrete draft immediately. The user will iterate from there.
-3. Present the requirements to the user for review.
+2. Create the spec directory `.specs/specs/{feature-name}/` and generate `requirements.md`, saving it to disk immediately. **Do NOT ask a series of clarifying questions first** — produce a concrete draft and write the file so the user can review it in their IDE.
+3. Tell the user the file has been saved and ask them to review. They may provide feedback in chat or edit the file directly.
 4. Iterate based on feedback until the user approves.
-5. **Only after explicit approval**, save to `.specs/specs/{feature-name}/requirements.md` and proceed to Phase 2.
+5. **After explicit approval**, re-read `requirements.md` from disk (the user may have edited it directly) and proceed to Phase 2.
 
 ### Requirements Format (EARS Notation)
 
@@ -140,11 +157,11 @@ Brief description of what this feature does and why it's needed.
 User approves the requirements (Phase 1).
 
 ### Your Behavior
-1. Re-read steering docs and the approved `requirements.md`.
-2. Generate a `design.md` that addresses every requirement.
-3. Present the design to the user for review.
+1. Re-read steering docs and `requirements.md` from disk (the user may have edited it since approval).
+2. Generate `design.md` that addresses every requirement, saving it to disk immediately.
+3. Tell the user the file has been saved and ask them to review. They may provide feedback in chat or edit the file directly.
 4. Iterate based on feedback. If the design reveals gaps in requirements, offer to go back and update `requirements.md`.
-5. **Only after explicit approval**, save to `.specs/specs/{feature-name}/design.md` and proceed to Phase 3.
+5. **After explicit approval**, re-read `design.md` from disk (the user may have edited it directly) and proceed to Phase 3.
 
 ### Design File Structure
 
@@ -239,11 +256,11 @@ Authentication, authorization, input validation, data protection measures.
 User approves the design (Phase 2).
 
 ### Your Behavior
-1. Re-read steering docs, approved `requirements.md`, and approved `design.md`.
-2. Generate a `tasks.md` with an ordered implementation checklist.
-3. Present the tasks to the user for review.
+1. Re-read steering docs, `requirements.md`, and `design.md` from disk (the user may have edited them since approval).
+2. Generate `tasks.md` with an ordered implementation checklist, saving it to disk immediately.
+3. Tell the user the file has been saved and ask them to review. They may provide feedback in chat or edit the file directly.
 4. Iterate based on feedback.
-5. **Only after explicit approval**, save to `.specs/specs/{feature-name}/tasks.md`.
+5. **After explicit approval**, the spec is complete and ready for implementation.
 
 ### Task File Structure
 
@@ -354,11 +371,46 @@ When the user mentions a spec by name in regular conversation, load all three fi
 
 ---
 
+## Issue Tracker Integration
+
+SDD supports bidirectional integration with issue trackers (Linear, Jira, GitHub Issues, etc.) through MCP tools. This integration is optional — the core spec workflow is pure-files and works without any issue tracker.
+
+### Inbound: Issue → Spec (`/spec-from-issue`)
+
+When creating a spec from an issue:
+1. Auto-detect which issue tracker MCP tools are available.
+2. Fetch the issue title, description, acceptance criteria, comments, and linked items.
+3. Use the issue content as the **seed** for requirements generation — don't copy-paste, restructure and enrich it with EARS notation, technical edge cases, and proper spec structure.
+4. Add `<!-- source: {tracker}:{issue-id} -->` metadata to `requirements.md`.
+5. After the engineer refines the spec, offer to write the enriched criteria back to the issue so the PM gets a properly defined story.
+
+**Graceful degradation**: If no issue tracker MCP is available, prompt the user to paste the issue details manually. The spec workflow proceeds identically.
+
+### Outbound: Spec → Issue (`/sync-to-issue`, `/implement`)
+
+Sync options (user chooses which to apply):
+- **Progress comment**: Post a summary of task completion to the issue (e.g., "3/14 tasks complete, covering requirements 1.1–2.3").
+- **Updated description**: Translate refined EARS requirements back to PM-readable language and update the issue.
+- **Status change**: Update the issue status (e.g., "In Progress", "In Review", "Done").
+
+When translating requirements back to PM language:
+- Convert `WHEN [trigger] THE SYSTEM SHALL [behavior]` to natural acceptance criteria.
+- Group by user story.
+- Keep it concise for non-technical stakeholders.
+- Don't dump raw EARS notation into the issue.
+
+**Granularity**: One issue maps to one spec at the feature/story level. Epics may inform steering docs but are not directly mapped to specs. Sub-issues in the tracker and tasks in `tasks.md` are independent — forcing alignment would make both worse.
+
+**Graceful degradation**: If no MCP is available, `/sync-to-issue` outputs a PM-readable summary the user can paste manually. `/implement` simply skips the sync offer.
+
+---
+
 ## Response Style During Spec Creation
 
 - Be **decisive and concrete**. Generate a full draft immediately — don't ask a long series of clarifying questions.
 - Be **concise in prose**. Specs should be dense with information, not padded with filler.
 - **Use Mermaid diagrams** in design docs wherever they add clarity.
 - **Show real code** (types, interfaces, signatures) in design docs, not pseudocode.
-- After presenting each phase, ask: "Review the above and let me know your feedback, or say **LGTM** to proceed to {next phase}."
-- When the user approves, confirm what you're saving and where, then immediately begin the next phase.
+- **Write files to disk immediately** — don't present content only in chat. Save the file first, then tell the user where it is.
+- After saving each phase, ask: "I've saved `{filename}` — review it in your IDE or here, then let me know your feedback or say **LGTM** to proceed to {next phase}."
+- When the user approves, **re-read the file from disk** (they may have made direct edits), then immediately begin the next phase.

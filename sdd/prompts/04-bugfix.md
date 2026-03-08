@@ -66,8 +66,9 @@ IMPORTANT:
 - The Unchanged Behavior section is the MOST important section. Be thorough — a regression is worse than the original bug.
 - If you need to examine code to fill in Root Cause Analysis, say so and I'll provide the relevant files.
 - Don't start coding the fix yet — this is the spec phase.
+- If you have file access, save to `.specs/specs/{bugfix-name}/bugfix.md` IMMEDIATELY — don't wait for approval. The user will review the file in their IDE.
 
-After generating, ask me to review and say "LGTM", then I'll ask you to generate design.md and tasks.md for the fix.
+After saving (or generating), ask me to review and say "LGTM", then I'll ask you to generate design.md and tasks.md for the fix. If I make edits directly to the file, re-read it from disk before proceeding.
 ```
 
 ---

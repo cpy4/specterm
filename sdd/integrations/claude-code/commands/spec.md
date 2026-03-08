@@ -16,19 +16,20 @@ Follow these rules exactly:
 
 1. **Create the spec directory**: `.specs/specs/{feature-name}/` using kebab-case derived from the feature description.
 
-2. **Generate `requirements.md`** as the first phase:
+2. **Generate and save `requirements.md`** to disk immediately:
    - Generate a complete draft IMMEDIATELY — do NOT ask a series of clarifying questions first.
    - Use EARS notation for all acceptance criteria: `WHEN [trigger] THE SYSTEM SHALL [behavior]`
    - Include: User Stories with numbered acceptance criteria, Non-Functional Requirements, Out of Scope, Open Questions
    - Cover error cases and edge cases, not just happy paths
    - Focus ONLY on WHAT the system should do, not HOW
+   - **Write the file to `.specs/specs/{feature-name}/requirements.md` immediately.**
 
-3. **Present the requirements** and ask: "Review the above and let me know your feedback, or say **LGTM** to proceed to Design."
+3. Tell the user the file has been saved and ask: "I've saved `requirements.md` — review it in your IDE or here, then let me know your feedback or say **LGTM** to proceed to Design."
 
 4. **Wait for approval** — do NOT proceed to design until the user explicitly approves.
 
-5. After approval, **generate `design.md`** following the design phase rules in `sdd/RULES.md`.
+5. After approval, **re-read `requirements.md` from disk** (the user may have edited it directly), then **generate and save `design.md`** to disk immediately, following the design phase rules in `sdd/RULES.md`.
 
-6. After design approval, **generate `tasks.md`** following the tasks phase rules in `sdd/RULES.md`.
+6. After design approval, **re-read `design.md` from disk**, then **generate and save `tasks.md`** to disk immediately, following the tasks phase rules in `sdd/RULES.md`.
 
-Each phase requires explicit user approval before advancing.
+Each phase: write the file to disk → ask for review → wait for approval → re-read from disk before advancing.

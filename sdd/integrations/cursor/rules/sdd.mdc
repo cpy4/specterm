@@ -1,5 +1,5 @@
 ---
-description: "Spec-Driven Development workflow. Activate when user mentions: creating specs, feature specifications, requirements, design docs, task lists, bugfix specs, steering docs, EARS notation, or references .specs/ directory. Also activate when files in .specs/ are in context."
+description: "Spec-Driven Development workflow. Activate when user mentions: creating specs, feature specifications, requirements, design docs, task lists, bugfix specs, steering docs, EARS notation, issue tracker sync, spec from issue, or references .specs/ directory. Also activate when files in .specs/ are in context."
 globs: ".specs/**/*.md"
 alwaysApply: false
 ---
@@ -32,5 +32,6 @@ Steering docs in `.specs/steering/` provide persistent project context — alway
 7. **Tasks are coding-only** — exclude deployment, docs, testing, CI/CD tasks
 8. **Bugfix specs** use `WHEN [condition] THE SYSTEM SHALL CONTINUE TO [behavior]` for regression protection
 9. **Check before implementing** — before writing any code for a feature, check `.specs/specs/` for an existing spec; if found, read `requirements.md`, `design.md`, and `tasks.md` first
+10. **Issue tracker integration** — specs can be seeded from Linear/Jira/GitHub issues (`/spec-from-issue`) and synced back (`/sync-to-issue`). Requires MCP. Falls back gracefully without it.
 
 For complete formatting rules, phase-specific instructions, and examples, read `sdd/RULES.md`.

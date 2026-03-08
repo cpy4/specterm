@@ -16,7 +16,7 @@ The user wants to generate (or regenerate) tasks for this spec:
 
 2. Read the spec's `requirements.md` and `design.md`. Both must exist and be approved before generating tasks.
 
-3. Generate `tasks.md` following these rules:
+3. **Generate and save `tasks.md` to disk immediately** following these rules:
    - Markdown checkboxes with max two levels of hierarchy
    - Each task is a self-contained coding unit (15-60 min)
    - Order: foundation first, test infrastructure early, inside-out, incremental complexity
@@ -25,7 +25,8 @@ The user wants to generate (or regenerate) tasks for this spec:
    - Include what tests to write alongside implementation
    - Exclude: deployment, docs, user testing, CI/CD, business process tasks
    - End with a Verification section
+   - **Write the file immediately.**
 
 4. If regenerating (tasks.md already exists), check for tasks marked `- [x]` (complete) and preserve their done status.
 
-5. Present for review before saving.
+5. Tell the user the file has been saved and ask for review: "I've saved `tasks.md` — review it in your IDE or here, then let me know your feedback or say **LGTM** to approve."

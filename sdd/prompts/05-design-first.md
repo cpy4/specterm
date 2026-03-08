@@ -32,7 +32,9 @@ Respect the established patterns in the project context.
 
 After I approve this design, we'll DERIVE requirements from it (ensuring every designed behavior has a testable criterion), then generate tasks.
 
-Present the design and ask me to review. Say "LGTM" when satisfied.
+If you have file access, save to `.specs/specs/{feature-name}/design.md` IMMEDIATELY — don't wait for approval. The user will review the file in their IDE.
+
+Present the design and ask me to review. Say "LGTM" when satisfied. If I make edits directly to the file, re-read it from disk before proceeding.
 ```
 
 ## Phase 2: Derive Requirements from Approved Design
@@ -41,7 +43,7 @@ Present the design and ask me to review. Say "LGTM" when satisfied.
 The design for {feature-name} has been approved. Now derive a requirements.md from it.
 
 APPROVED DESIGN:
-{PASTE OR REFERENCE design.md}
+{PASTE OR REFERENCE design.md — if you have file access, re-read design.md from disk as the user may have edited it directly}
 
 YOUR TASK:
 Work BACKWARDS from the design to create requirements.md:
@@ -55,7 +57,9 @@ Work BACKWARDS from the design to create requirements.md:
 
 The requirements must be 100% achievable given the approved design. Do not add requirements that would force design changes.
 
-Number all acceptance criteria for traceability. Present for review.
+Number all acceptance criteria for traceability.
+
+If you have file access, save to `.specs/specs/{feature-name}/requirements.md` IMMEDIATELY. Present for review. If I make edits directly, re-read from disk before proceeding.
 ```
 
 ## Phase 3: Tasks (standard)

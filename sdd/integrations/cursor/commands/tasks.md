@@ -11,7 +11,7 @@ Then read all steering docs from `.specs/steering/` (if they exist).
 
 2. Read the spec's `requirements.md` and `design.md`. Both must exist.
 
-3. Generate `tasks.md`:
+3. **Generate and save `tasks.md` to disk immediately**:
    - Markdown checkboxes, max two levels deep
    - Each task is self-contained (15-60 min of work)
    - Order: foundation first, test infrastructure early, incremental complexity
@@ -19,7 +19,8 @@ Then read all steering docs from `.specs/steering/` (if they exist).
    - Include what tests to write alongside implementation
    - Exclude: deployment, docs, user testing, CI/CD tasks
    - End with a Verification section
+   - **Write the file immediately.**
 
 4. If regenerating, preserve `- [x]` (completed) status on existing tasks.
 
-5. Present for review before saving.
+5. Tell the user the file has been saved and ask for review: "I've saved `tasks.md` — review it in your IDE or here, then let me know your feedback or say **LGTM** to approve."

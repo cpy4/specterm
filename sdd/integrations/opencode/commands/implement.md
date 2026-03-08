@@ -23,4 +23,6 @@ If `$SPEC_NAME` is not set, list available specs in `.specs/specs/` and ask the 
 - Implement only the specified task — do not implement adjacent tasks even if they seem related
 - Follow the design in `design.md` exactly
 - Write tests alongside the implementation as specified in the task
-- After completion, mark the task `- [x]` in `tasks.md` and suggest the next incomplete task
+- After completion, mark the task `- [x]` in `tasks.md`
+- Check if `requirements.md` has a `<!-- source: {tracker}:{issue-id} -->` metadata comment. If so, and all tasks are now complete (`- [x]`), offer to update the linked issue status via MCP (e.g., "All tasks complete! Want me to update {issue-id} status?"). If tasks remain, suggest the next incomplete task.
+- If no source metadata or no MCP available, simply suggest the next incomplete task

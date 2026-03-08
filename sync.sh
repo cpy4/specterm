@@ -1,0 +1,85 @@
+#!/bin/bash
+# Sync sdd/ from this repo to a target project (for local development)
+# Usage: ./sync.sh /path/to/your-project [tool ...]
+#
+# Examples:
+#   ./sync.sh ~/Code/my-app                    # sync sdd/, re-run setup interactively
+#   ./sync.sh ~/Code/my-app claude-code         # sync sdd/, re-run setup for claude-code
+#   ./sync.sh ~/Code/my-app --all               # sync sdd/, re-run setup for all tools
+#   ./sync.sh ~/Code/my-app --no-setup          # sync sdd/ only, skip setup
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SDD_SOURCE="$SCRIPT_DIR/sdd"
+
+if [[ -z "$1" ]]; then
+    echo "Usage: ./sync.sh <project-path> [tool ...] [--no-setup]"
+    echo ""
+    echo "Syncs sdd/ from this repo into the target project."
+    echo ""
+    echo "Options:"
+    echo "  <project-path>   Path to the target project"
+    echo "  [tool ...]       Tools to set up (claude-code, cursor, opencode, zed, --all)"
+    echo "  --no-setup       Only sync files, don't re-run setup.sh"
+    echo ""
+    echo "Examples:"
+    echo "  ./sync.sh ~/Code/my-app"
+    echo "  ./sync.sh ~/Code/my-app claude-code cursor"
+    echo "  ./sync.sh ~/Code/my-app --all"
+    echo "  ./sync.sh ~/Code/my-app --no-setup"
+    exit 1
+fi
+
+TARGET="$1"
+shift
+
+if [[ ! -d "$TARGET" ]]; then
+    echo "Error: $TARGET is not a directory"
+    exit 1
+fi
+
+if [[ ! -d "$SDD_SOURCE" ]]; then
+    echo "Error: sdd/ not found at $SDD_SOURCE"
+    exit 1
+fi
+
+# Check for --no-setup flag
+no_setup=false
+setup_args=()
+for arg in "$@"; do
+    if [[ "$arg" == "--no-setup" ]]; then
+        no_setup=true
+    else
+        setup_args+=("$arg")
+    fi
+done
+
+echo "╔══════════════════════════════════════════╗"
+echo "║   SDD Sync                                ║"
+echo "╚══════════════════════════════════════════╝"
+echo ""
+echo "Source: $SDD_SOURCE"
+echo "Target: $TARGET/sdd/"
+echo ""
+
+# Sync sdd/ to target, excluding .DS_Store
+rsync -av --delete \
+    --exclude='.DS_Store' \
+    "$SDD_SOURCE/" "$TARGET/sdd/"
+
+echo ""
+echo "✓ Synced sdd/ to $TARGET/sdd/"
+
+# Re-run setup unless --no-setup
+if $no_setup; then
+    echo ""
+    echo "Skipped setup (--no-setup). Run manually if needed:"
+    echo "  cd $TARGET && ./sdd/setup.sh"
+else
+    echo ""
+    echo "── Re-running setup ──"
+    (cd "$TARGET" && bash ./sdd/setup.sh "${setup_args[@]}")
+fi
+
+echo ""
+echo "✓ Done!"

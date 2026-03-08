@@ -13,10 +13,10 @@ PROJECT CONTEXT:
 {STEERING_CONTEXT}
 
 APPROVED REQUIREMENTS:
-{PASTE YOUR requirements.md CONTENT HERE}
+{PASTE YOUR requirements.md CONTENT HERE — or if you have file access, re-read requirements.md from disk as the user may have edited it directly}
 
 APPROVED DESIGN:
-{PASTE YOUR design.md CONTENT HERE}
+{PASTE YOUR design.md CONTENT HERE — or if you have file access, re-read design.md from disk as the user may have edited it directly}
 
 YOUR TASK:
 Generate a complete tasks.md document — an ordered implementation checklist that a developer (or AI coding agent) can follow sequentially to build this feature. Follow these rules precisely:
@@ -65,8 +65,9 @@ IMPORTANT:
 - Prioritize test-driven sequencing: test setup → test writing → implementation → verification.
 - Use the exact component names, function signatures, and file paths from the design doc.
 - After the task list, add a "Verification" section listing how to confirm the full feature works end-to-end.
+- If you have file access, save to `.specs/specs/{feature-name}/tasks.md` IMMEDIATELY — don't wait for approval. The user will review the file in their IDE.
 
-After generating, ask me to review and say "LGTM" when I'm satisfied.
+After saving (or generating), ask me to review and say "LGTM" when I'm satisfied.
 ```
 
 ---

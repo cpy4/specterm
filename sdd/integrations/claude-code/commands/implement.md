@@ -40,4 +40,14 @@ Write tests alongside the implementation as specified in the task.
 
 ## Step 5: Mark Complete
 
-After implementation, mark the task `- [x]` in `tasks.md` and suggest the next incomplete task.
+After implementation, mark the task `- [x]` in `tasks.md`.
+
+## Step 6: Issue Tracker Sync (if applicable)
+
+Check if `requirements.md` (or `bugfix.md`) contains a source metadata comment: `<!-- source: {tracker}:{issue-id} -->`.
+
+If a source issue is linked and issue tracker MCP tools are available:
+- If **this was the last task** (all tasks are now `- [x]`): Offer to update the issue status to indicate completion (e.g., "In Review" or "Done"). Ask the user: "All tasks complete! Want me to update {issue-id} status?"
+- If **tasks remain**: Suggest the next incomplete task as usual.
+
+If no source metadata or no MCP tools are available, simply suggest the next incomplete task.

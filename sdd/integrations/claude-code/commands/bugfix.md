@@ -16,7 +16,7 @@ Follow these rules exactly:
 
 1. **Create the spec directory**: `.specs/specs/{bugfix-name}/` using kebab-case.
 
-2. **Generate `bugfix.md`** (replaces requirements.md) with these sections:
+2. **Generate and save `bugfix.md` to disk immediately** (replaces requirements.md) with these sections:
    - **Current Behavior**: Exactly what the system does now (the bug)
    - **Expected Behavior**: What it should do instead (EARS notation)
    - **Reproduction Steps**: Numbered steps to reproduce
@@ -24,9 +24,10 @@ Follow these rules exactly:
    - **Root Cause Analysis**: Identified or suspected cause
    - **Affected Components**: Specific files and modules
    - **Test Cases**: Regression test for the fix + tests for unchanged behaviors
+   - **Write the file immediately.**
 
 3. The **Unchanged Behavior** section is the most important. Be thorough — a regression is worse than the original bug. Think about adjacent features, other user roles, and edge cases that currently work.
 
-4. **Present for review**. After approval, proceed to `design.md` (focused on fix approach), then `tasks.md`.
+4. Tell the user the file has been saved and ask for review. After approval, **re-read `bugfix.md` from disk** (user may have edited it directly), then **generate and save `design.md`** to disk immediately (focused on fix approach). After design approval, **re-read `design.md` from disk**, then **generate and save `tasks.md`** to disk immediately.
 
-Each phase requires explicit user approval before advancing.
+Each phase: write the file to disk → ask for review → wait for approval → re-read from disk before advancing.

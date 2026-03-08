@@ -27,4 +27,4 @@ First, read `sdd/RULES.md` (Steering Docs section) and the templates in `sdd/tem
 - Be specific to THIS project, not generic
 - For prohibitions, only list things justified by the codebase
 - Mark uncertain items with `<!-- TODO: confirm -->`
-- Present all three files for review before saving
+- **Save all three files to disk immediately**, then tell the user: "I've saved the steering docs to `.specs/steering/` — review them in your IDE or here, then let me know your feedback or say **LGTM** to approve."

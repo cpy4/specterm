@@ -2,7 +2,7 @@
 
 This project uses Spec-Driven Development (SDD). Specs live in `.specs/specs/{feature-name}/` with three files: `requirements.md`, `design.md`, `tasks.md`.
 
-- Before implementing any non-trivial feature, create a spec first
+- Before implementing any non-trivial feature, create a spec first (or seed from an issue tracker issue)
 - Before implementing anything, check `.specs/specs/` for an existing spec matching the feature — if one exists, read its `requirements.md`, `design.md`, and `tasks.md` before writing any code
 - Always read `.specs/steering/*.md` before generating specs or making architectural decisions
 - Full SDD rules and workflow: read `sdd/RULES.md` when doing any spec work
@@ -10,3 +10,4 @@ This project uses Spec-Driven Development (SDD). Specs live in `.specs/specs/{fe
 - Three phases with mandatory approval gates: Requirements → Design → Tasks
 - Never auto-advance phases — wait for explicit user approval (e.g., "LGTM")
 - For bugfix specs, always include an "Unchanged Behavior" section to prevent regressions
+- Issue tracker integration: specs can be seeded from Linear/Jira/GitHub issues and synced back. Requires MCP.

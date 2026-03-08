@@ -46,8 +46,9 @@ IMPORTANT:
 - Do NOT ask me a series of clarifying questions — generate a complete first draft now.
 - Focus ONLY on WHAT the system should do, not HOW.
 - Be thorough: think about error states, concurrent access, empty states, and boundary conditions.
+- If you have file access, save to `.specs/specs/{feature-name}/requirements.md` IMMEDIATELY — don't wait for approval. The user will review the file in their IDE.
 
-After generating, ask me to review and say "LGTM" when I'm satisfied.
+After saving (or generating), ask me to review and say "LGTM" when I'm satisfied. If I make edits directly to the file, re-read it from disk before proceeding to the next phase.
 ```
 
 ---

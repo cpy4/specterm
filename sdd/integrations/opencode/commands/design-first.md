@@ -9,12 +9,12 @@ Then read all steering docs from `.specs/steering/` (if they exist).
 
 1. **Create the spec directory**: `.specs/specs/{feature-name}/` using kebab-case.
 
-2. **Generate `design.md` FIRST**: Validate the user's architectural intent, define components/interfaces/data models, show Mermaid diagrams, include error handling and testing strategy. Use real code signatures.
+2. **Generate and save `design.md` to disk immediately**: Validate the user's architectural intent, define components/interfaces/data models, show Mermaid diagrams, include error handling and testing strategy. Use real code signatures. **Write the file immediately.**
 
-3. **Present for review**. Ask: "Review the above and let me know your feedback, or say **LGTM** to proceed to Requirements."
+3. Tell the user the file has been saved. Ask: "I've saved `design.md` — review it in your IDE or here, then let me know your feedback or say **LGTM** to proceed to Requirements."
 
-4. After approval, **derive `requirements.md` FROM the design** — work backwards so every designed behavior has a testable EARS criterion. Don't add requirements that would force design changes.
+4. After approval, **re-read `design.md` from disk** (user may have edited it directly), then **derive and save `requirements.md`** to disk immediately — work backwards so every designed behavior has a testable EARS criterion. Don't add requirements that would force design changes.
 
-5. After requirements approval, **generate `tasks.md`** as normal.
+5. After requirements approval, **re-read `requirements.md` from disk**, then **generate and save `tasks.md`** to disk immediately.
 
-Each phase requires explicit user approval before advancing.
+Each phase: write the file to disk → ask for review → wait for approval → re-read from disk before advancing.

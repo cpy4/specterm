@@ -13,7 +13,7 @@ PROJECT CONTEXT:
 {STEERING_CONTEXT}
 
 APPROVED REQUIREMENTS:
-{PASTE YOUR requirements.md CONTENT HERE}
+{PASTE YOUR requirements.md CONTENT HERE — or if you have file access, re-read requirements.md from disk as the user may have edited it directly}
 
 YOUR TASK:
 Generate a complete design.md document that provides a technical blueprint for implementing every requirement above. Follow these rules precisely:
@@ -60,8 +60,9 @@ IMPORTANT:
 - Use Mermaid diagrams — don't just describe architecture in prose.
 - Justify new dependencies. Prefer what's already in the project.
 - If you discover gaps in the requirements during design, list them at the end and offer to update the requirements.
+- If you have file access, save to `.specs/specs/{feature-name}/design.md` IMMEDIATELY — don't wait for approval. The user will review the file in their IDE.
 
-After generating, ask me to review and say "LGTM" when I'm satisfied.
+After saving (or generating), ask me to review and say "LGTM" when I'm satisfied. If I make edits directly to the file, re-read it from disk before proceeding to the next phase.
 ```
 
 ---

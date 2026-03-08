@@ -39,7 +39,7 @@ cp -r sdd/ /your/project/
 Or pull it directly from GitHub without cloning the full repo:
 
 ```bash
-git clone --depth=1 https://github.com/cjpye/specterm.git /tmp/specterm && cp -r /tmp/specterm/sdd /your/project/ && rm -rf /tmp/specterm
+git clone --depth=1 https://github.com/cpy4/specterm.git /tmp/specterm && cp -r /tmp/specterm/sdd /your/project/ && rm -rf /tmp/specterm
 ```
 
 ### 2. Run setup

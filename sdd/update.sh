@@ -11,7 +11,7 @@
 #   ./sdd/update.sh --no-setup          # update sdd/ only, skip setup
 set -e
 
-REPO_URL="https://github.com/cpy4/specterm.git"
+REPO_URL="https://github.com/cpy4/speq.git"
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SDD_DIR="$PROJECT_ROOT/sdd"
 TMP_DIR=$(mktemp -d)

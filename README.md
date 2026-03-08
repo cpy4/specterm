@@ -1,4 +1,4 @@
-# Specterm
+# Speq
 
 A portable, tool-agnostic **Spec-Driven Development (SDD)** system for structured software development with AI assistants. Drop the `sdd/` folder into any project and get a structured spec workflow — inspired by Kiro's spec-driven approach.
 
@@ -56,7 +56,7 @@ cp -r sdd/ /your/project/
 Or pull it directly from GitHub:
 
 ```bash
-git clone --depth=1 https://github.com/cpy4/specterm.git /tmp/specterm && cp -r /tmp/specterm/sdd /your/project/ && rm -rf /tmp/specterm
+git clone --depth=1 https://github.com/cpy4/speq.git /tmp/speq && cp -r /tmp/speq/sdd /your/project/ && rm -rf /tmp/speq
 ```
 
 ### 2. Run setup
@@ -96,7 +96,7 @@ CLAUDE.md / AGENTS.md       ← ~20 lines. Tells AI that SDD exists.
 ## Repository Structure
 
 ```
-sync.sh                         # Push sdd/ to a local project (for specterm developers)
+sync.sh                         # Push sdd/ to a local project (for speq developers)
 sdd/
 ├── RULES.md                    # Full SDD rules (read on-demand by AI)
 ├── setup.sh                    # Setup script for tool integrations
@@ -151,9 +151,9 @@ Every project that has `sdd/` includes an update script:
 ./sdd/update.sh --no-setup
 ```
 
-This shallow-clones the latest specterm repo from GitHub, replaces `sdd/`, and re-runs setup to refresh slash commands and rules.
+This shallow-clones the latest speq repo from GitHub, replaces `sdd/`, and re-runs setup to refresh slash commands and rules.
 
-### From the specterm repo (local development)
+### From the speq repo (local development)
 
 If you're actively developing the SDD system and want to push changes to a local project:
 

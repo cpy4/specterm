@@ -1,4 +1,4 @@
-# Specter
+# Specterm
 
 A portable, tool-agnostic **Spec-Driven Development (SDD)** system for structured software development with AI assistants. Drop the `sdd/` folder into any project and get a structured spec workflow — inspired by Kiro's spec-driven approach.
 
@@ -39,7 +39,7 @@ cp -r sdd/ /your/project/
 Or pull it directly from GitHub without cloning the full repo:
 
 ```bash
-git clone --depth=1 https://github.com/cjpye/specter.git /tmp/specter && cp -r /tmp/specter/sdd /your/project/ && rm -rf /tmp/specter
+git clone --depth=1 https://github.com/cjpye/specterm.git /tmp/specterm && cp -r /tmp/specterm/sdd /your/project/ && rm -rf /tmp/specterm
 ```
 
 ### 2. Run setup

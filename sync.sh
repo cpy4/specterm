@@ -1,21 +1,21 @@
 #!/bin/bash
-# Sync sdd/ from this repo to a target project (for local development)
+# Sync .speq/ from this repo to a target project (for local development)
 # Usage: ./sync.sh /path/to/your-project [tool ...]
 #
 # Examples:
-#   ./sync.sh ~/Code/my-app                    # sync sdd/, re-run setup interactively
-#   ./sync.sh ~/Code/my-app claude-code         # sync sdd/, re-run setup for claude-code
-#   ./sync.sh ~/Code/my-app --all               # sync sdd/, re-run setup for all tools
-#   ./sync.sh ~/Code/my-app --no-setup          # sync sdd/ only, skip setup
+#   ./sync.sh ~/Code/my-app                    # sync .speq/, re-run setup interactively
+#   ./sync.sh ~/Code/my-app claude-code         # sync .speq/, re-run setup for claude-code
+#   ./sync.sh ~/Code/my-app --all               # sync .speq/, re-run setup for all tools
+#   ./sync.sh ~/Code/my-app --no-setup          # sync .speq/ only, skip setup
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SDD_SOURCE="$SCRIPT_DIR/sdd"
+SDD_SOURCE="$SCRIPT_DIR/.speq"
 
 if [[ -z "$1" ]]; then
     echo "Usage: ./sync.sh <project-path> [tool ...] [--no-setup]"
     echo ""
-    echo "Syncs sdd/ from this repo into the target project."
+    echo "Syncs .speq/ from this repo into the target project."
     echo ""
     echo "Options:"
     echo "  <project-path>   Path to the target project"
@@ -39,7 +39,7 @@ if [[ ! -d "$TARGET" ]]; then
 fi
 
 if [[ ! -d "$SDD_SOURCE" ]]; then
-    echo "Error: sdd/ not found at $SDD_SOURCE"
+    echo "Error: .speq/ not found at $SDD_SOURCE"
     exit 1
 fi
 
@@ -55,30 +55,30 @@ for arg in "$@"; do
 done
 
 echo "╔══════════════════════════════════════════╗"
-echo "║   SDD Sync                                ║"
+echo "║   Speq Sync                                ║"
 echo "╚══════════════════════════════════════════╝"
 echo ""
 echo "Source: $SDD_SOURCE"
-echo "Target: $TARGET/sdd/"
+echo "Target: $TARGET/.speq/"
 echo ""
 
-# Sync sdd/ to target, excluding .DS_Store
+# Sync .speq/ to target, excluding .DS_Store
 rsync -av --delete \
     --exclude='.DS_Store' \
-    "$SDD_SOURCE/" "$TARGET/sdd/"
+    "$SDD_SOURCE/" "$TARGET/.speq/"
 
 echo ""
-echo "✓ Synced sdd/ to $TARGET/sdd/"
+echo "✓ Synced .speq/ to $TARGET/.speq/"
 
 # Re-run setup unless --no-setup
 if $no_setup; then
     echo ""
     echo "Skipped setup (--no-setup). Run manually if needed:"
-    echo "  cd $TARGET && ./sdd/setup.sh"
+    echo "  cd $TARGET && ./.speq/setup.sh"
 else
     echo ""
     echo "── Re-running setup ──"
-    (cd "$TARGET" && bash ./sdd/setup.sh "${setup_args[@]}")
+    (cd "$TARGET" && bash ./.speq/setup.sh "${setup_args[@]}")
 fi
 
 echo ""

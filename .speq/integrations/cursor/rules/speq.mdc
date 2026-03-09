@@ -1,0 +1,37 @@
+---
+description: "Spec-Driven Development workflow. Activate when user mentions: creating specs, feature specifications, requirements, design docs, task lists, bugfix specs, steering docs, EARS notation, issue tracker sync, spec from issue, or references .specs/ directory. Also activate when files in .specs/ are in context."
+globs: ".specs/**/*.md"
+alwaysApply: false
+---
+
+# Spec-Driven Development Rules
+
+Read `.speq/RULES.md` for the full workflow details before generating any spec artifacts.
+
+## Core Workflow
+
+This project uses Spec-Driven Development with three phases and mandatory approval gates:
+
+**Requirements → (LGTM) → Design → (LGTM) → Tasks → (LGTM) → Implementation**
+
+All specs live in `.specs/specs/{feature-name}/` (kebab-case) with three files:
+- `requirements.md` — EARS notation user stories + acceptance criteria
+- `design.md` — Architecture, Mermaid diagrams, data models, testing strategy
+- `tasks.md` — Ordered implementation checklist with requirement traceability
+
+Steering docs in `.specs/steering/` provide persistent project context — always read them before generating specs.
+
+## Key Rules
+
+1. **Generate immediately** — produce a complete draft, don't ask sequential clarifying questions
+2. **EARS notation** for all acceptance criteria: `WHEN [trigger] THE SYSTEM SHALL [behavior]`
+3. **Never auto-advance** — wait for explicit user approval ("LGTM") between phases
+4. **Mermaid diagrams** in design docs for architecture and sequence flows
+5. **Real code signatures** in design docs, not pseudocode
+6. **Traceability** — every task references specific requirement numbers
+7. **Tasks are coding-only** — exclude deployment, docs, testing, CI/CD tasks
+8. **Bugfix specs** use `WHEN [condition] THE SYSTEM SHALL CONTINUE TO [behavior]` for regression protection
+9. **Check before implementing** — before writing any code for a feature, check `.specs/specs/` for an existing spec; if found, read `requirements.md`, `design.md`, and `tasks.md` first
+10. **Issue tracker integration** — specs can be seeded from Linear/Jira/GitHub issues (`/spec-from-issue`) and synced back (`/sync-to-issue`). Requires MCP. Falls back gracefully without it.
+
+For complete formatting rules, phase-specific instructions, and examples, read `.speq/RULES.md`.

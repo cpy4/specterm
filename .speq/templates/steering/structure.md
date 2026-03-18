@@ -42,3 +42,9 @@ project-root/
 ## Error Handling Patterns
 <!-- e.g., Custom AppError class. Error boundaries at route level. -->
 - 
+
+## Features
+
+<!-- speq:features — list features that should have specs. slugs map to .speq/specs/<slug>/ -->
+- `feature-slug` — Short description of this feature
+<!-- speq:features:end -->

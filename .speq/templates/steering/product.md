@@ -11,8 +11,12 @@
 ## Core Features
 <!-- The main capabilities of the product -->
 - 
-- 
-- 
+
+## Features
+
+<!-- speq:features — list features that should have specs. slugs map to .speq/specs/<slug>/ -->
+- `feature-slug` — Short description of this feature
+<!-- speq:features:end -->
 
 ## Business Objectives
 <!-- What success looks like -->

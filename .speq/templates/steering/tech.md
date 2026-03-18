@@ -39,3 +39,9 @@
 <!-- Default choices when multiple options exist -->
 <!-- e.g., Always use named exports. Prefer zod for validation. Use server components by default. -->
 - 
+
+## Features
+
+<!-- speq:features — list features that should have specs. slugs map to .speq/specs/<slug>/ -->
+- `feature-slug` — Short description of this feature
+<!-- speq:features:end -->

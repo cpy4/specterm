@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import * as fs from 'fs';
+import { exec } from 'child_process';
 import { analyze } from './analyzer.js';
 import { renderTerminal } from './renderer/terminal.js';
 import { renderHtml } from './renderer/html.js';
@@ -59,6 +60,29 @@ Options:
 `.trim());
 }
 
+function openInBrowser(filePath: string): void {
+  const fullPath = `file://${filePath}`;
+  console.log(`Open in browser: ${fullPath}`);
+  
+  let command: string;
+  switch (process.platform) {
+    case 'darwin':
+      command = `open "${fullPath}"`;
+      break;
+    case 'win32':
+      command = `start "" "${fullPath}"`;
+      break;
+    default:
+      command = `xdg-open "${fullPath}"`;
+  }
+  
+  try {
+    exec(command);
+  } catch {
+    console.log(`(Could not auto-open browser. Open manually: ${fullPath})`);
+  }
+}
+
 function main(): void {
   const options = parseArgs();
   const report = analyze();
@@ -69,13 +93,11 @@ function main(): void {
   
   if (options.html) {
     const html = renderHtml(report);
+    const outputPath = options.output || 'speq-coverage.html';
     
-    if (options.output) {
-      fs.writeFileSync(options.output, html);
-      console.log(`HTML report written to: ${options.output}`);
-    } else {
-      console.log(html);
-    }
+    fs.writeFileSync(outputPath, html);
+    console.log(`HTML report written to: ${outputPath}`);
+    openInBrowser(outputPath);
   } else {
     const output = renderTerminal(report, options);
     console.log(output);

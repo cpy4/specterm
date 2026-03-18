@@ -62,12 +62,36 @@ function renderSteeringSection(docs: CoverageReport['steeringDocs']): string {
   `).join('');
 }
 
-function renderSpecsSection(specs: CoverageReport['specs']): string {
-  if (specs.length === 0) {
+function renderSpecsSection(specs: CoverageReport['specs'], gaps: CoverageReport['gaps']): string {
+  const missingSpecGaps = gaps.filter(g => g.type === 'missing-spec');
+  
+  const merged: Array<{ type: 'spec' | 'gap'; name: string; data: CoverageReport['specs'][0] | CoverageReport['gaps'][0] }> = [
+    ...specs.map(spec => ({ type: 'spec' as const, name: spec.name.toLowerCase(), data: spec })),
+    ...missingSpecGaps.map(gap => ({ type: 'gap' as const, name: (gap.file || gap.feature || '').toLowerCase(), data: gap }))
+  ];
+  
+  merged.sort((a, b) => a.name.localeCompare(b.name));
+  
+  if (merged.length === 0) {
     return '<p class="empty">No specs found</p>';
   }
   
-  return specs.map(spec => `
+  return merged.map(item => {
+    if (item.type === 'gap') {
+      const gap = item.data as CoverageReport['gaps'][0];
+      return `
+    <div class="item gap-inline">
+      <div class="item-header">
+        <span class="status-dot" style="background: #ef4444"></span>
+        <span class="item-name">${escapeHtml(gap.file || gap.feature || 'unknown')}</span>
+        <span class="badge">[GAP]</span>
+        <span class="status-label">no spec exists yet</span>
+      </div>
+    </div>`;
+    }
+    
+    const spec = item.data as CoverageReport['specs'][0];
+    return `
     <div class="item">
       <div class="item-header">
         <span class="status-dot" style="background: ${getStatusColor(spec.status)}"></span>
@@ -77,8 +101,8 @@ function renderSpecsSection(specs: CoverageReport['specs']): string {
       <div class="phases">
         ${renderProgressBar(spec.phases)}
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 function renderGapsSection(gaps: CoverageReport['gaps']): string {
@@ -211,6 +235,19 @@ export function renderHtml(report: CoverageReport): string {
       background: var(--border);
     }
     
+    .badge {
+      font-size: 0.625rem;
+      padding: 0.125rem 0.375rem;
+      border-radius: 3px;
+      background: #ef4444;
+      color: white;
+      font-weight: 700;
+    }
+    
+    .gap-inline {
+      border-left: 3px solid #ef4444;
+    }
+    
     .feature-list {
       margin-top: 0.5rem;
       padding-left: 1.5rem;
@@ -314,7 +351,7 @@ export function renderHtml(report: CoverageReport): string {
     
     <section>
       <h2>Specs</h2>
-      ${renderSpecsSection(report.specs)}
+      ${renderSpecsSection(report.specs, report.gaps)}
     </section>
     
     <section>

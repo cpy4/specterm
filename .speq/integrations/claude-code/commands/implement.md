@@ -12,6 +12,15 @@ The user wants to implement a task from this spec:
 
 Follow this strict load order before writing any code:
 
+## Step 0: Branch Check
+
+Before loading any context, run `git branch --show-current` to check the active branch.
+
+If the current branch is `main`, `master`, `develop`, `trunk`, or any name that looks like a production or shared base branch:
+- Warn the user: "⚠️ You're on `<branch>`. Implementing directly on this branch is not recommended."
+- Suggest: "Create a feature branch first: `git checkout -b feat/{spec-name}`"
+- **Do not proceed** until the user confirms the branch or switches to a new one.
+
 ## Step 1: Load Steering Context
 
 Read all files in `.specs/steering/` (if the directory exists). These define project-wide conventions, tech stack, and architecture that must be respected.
@@ -38,16 +47,27 @@ Implement only the specified task. Follow the design exactly. Do not implement o
 
 Write tests alongside the implementation as specified in the task.
 
-## Step 5: Mark Complete
+## Step 5: Commit the Task
 
-After implementation, mark the task `- [x]` in `tasks.md`.
+After marking the task `- [x]` in `tasks.md`, stage and commit all changes:
 
-## Step 6: Issue Tracker Sync (if applicable)
+```
+git add -A
+git commit -m "feat(<spec-name>): task N — <task title>"
+```
 
-Check if `requirements.md` (or `bugfix.md`) contains a source metadata comment: `<!-- source: {tracker}:{issue-id} -->`.
+Use the spec folder name as `<spec-name>` and the task's title from `tasks.md` as `<task title>`.
 
-If a source issue is linked and issue tracker MCP tools are available:
-- If **this was the last task** (all tasks are now `- [x]`): Offer to update the issue status to indicate completion (e.g., "In Review" or "Done"). Ask the user: "All tasks complete! Want me to update {issue-id} status?"
-- If **tasks remain**: Suggest the next incomplete task as usual.
+## Step 6: Check for Spec Completion
 
-If no source metadata or no MCP tools are available, simply suggest the next incomplete task.
+Re-read `tasks.md` from disk. If **all tasks are now `- [x]`**:
+
+1. Push the branch: `git push -u origin <branch>`
+2. Open a pull request with:
+   - **Title:** the spec name in title case (e.g. "User Authentication")
+   - **Body:** a summary of what was built, referencing `.specs/specs/{spec-name}/`
+   - If the `gh` CLI is available, use: `gh pr create --title "..." --body "..."`
+   - Otherwise, print the push command and instruct the user to open a PR manually
+3. Check if `requirements.md` has a `<!-- source: {tracker}:{issue-id} -->` comment. If so and MCP tools are available, offer to update the linked issue status.
+
+If tasks remain, suggest the next incomplete task.

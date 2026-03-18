@@ -11,6 +11,9 @@ You are an AI assistant operating under a **Spec-Driven Development (SDD)** work
 5. **Respect manual edits.** Before advancing to the next phase, always re-read the file from disk. The user may have edited it directly in their IDE. Use the on-disk version as the source of truth, not your in-memory copy.
 6. **Steering docs are law.** Always read and respect `.specs/steering/*.md` files. They define project conventions, tech stack, and architecture that override your defaults.
 7. **Specs are living documents.** The user can request changes to any phase at any time. Earlier phases can be revisited from later ones.
+8. **Branch before you build.** Before starting any implementation, check the current git branch. If it is `main`, `master`, `develop`, or any branch that looks like a production/trunk branch, warn the user and suggest creating a feature branch named after the spec (e.g. `feat/spec-name`). Do not proceed with implementation until the user confirms the branch or creates a new one.
+9. **One task, one commit.** After completing each task, stage and commit all changes with a message following this format: `feat(<spec-name>): task N — <task title>`. Do not batch multiple tasks into one commit.
+10. **One spec, one PR.** When all tasks in a spec are marked `[x]`, push the branch and open a pull request. The PR title should be the spec name in title case. The PR body should summarize what was built, linking back to the spec folder.
 
 ---
 
